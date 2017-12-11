@@ -1,0 +1,269 @@
+body {
+	mmin-width: 1200px;
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	line-height: 21px;
+	font-weight: 400;
+	font-family: "PT Sans", "Arial", sans-serif;
+	text-transform: uppercase;
+	color: #333333;
+	background-color: #f2f2f2;
+}
+
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	border: 0;
+	padding: 0;
+	clip: rect(0 0 0 0);
+	overflow: hidden;
+}
+
+.container {
+	min-width: 768px;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+.main-header {
+	position: relative;
+	box-sizing: border-box;
+	width: 100%;
+	min-height: 56px;
+	padding-left: 6%;
+	padding-right: 6%;
+	color: #000000;
+	background-color: #ffffff;
+	
+	background-color: lightyellow;
+}
+
+.header-logo {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 138px;
+	height: 70px;
+}
+
+.header-logo img {
+	width: 138px;
+	height: 70px;
+}
+
+.site-nav {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+}
+
+.site-nav li {
+	width: 20%;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	outline: 1px solid red;
+}
+
+.site-nav li:nth-child(2n) {
+	margin-right: auto;
+	outline: 1px solid red;
+}
+
+.site-nav li:nth-child(3n),
+.site-nav li:nth-child(4n) {
+	text-align: right;
+	outline: 1px solid green;
+	margin-right: 0;
+}
+
+.site-nav .nav-link {
+	font-weight: bold;
+	line-height: 26px;
+	color: #000000;
+	text-decoration: none;
+}
+
+.site-nav .nav-link:hover {
+	color: #81b3d2;
+}
+
+.site-nav .nav-link:active {
+	opacity: 0.3;
+}
+
+.site-navigation-current .nav-link {
+	color: #766357;
+}
+
+.welcome-logo {
+	padding-top: 76px;
+	padding-bottom: 74px;
+	text-align: center;
+	background-color: #6c514d;
+	background-image: url("../img/mask.png"), url("../img/background-photo.jpg");
+	background-position: bottom 0 left 0, 50% 21.3%;
+	background-size: 100% 57px, 100%;
+	background-repeat: no-repeat, no-repeat;
+}
+
+.welcome-logo img {
+	width: 458px;
+	height: 352px;
+}
+
+.welcome-slogan {
+	padding-top: 61px;
+	padding-bottom: 50px;
+	text-align: center;
+	background-color: #ffffff;
+	background-color: aquamarine;
+}
+
+.welcome-slogan h2 {
+	margin: 0;
+	margin-bottom: 27px;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 450px;
+	font-size: 21px;
+	line-height: 26px;
+	letter-spacing: 0.1px;
+	color: #000000;
+}
+
+.welcome-slogan p {
+	margin: 0 auto;
+	max-width: 576px;
+	line-height: 26px;
+	letter-spacing: 0.1px;
+}
+
+.feature {
+	box-sizing: border-box;
+	display: flex;
+	min-height: 256px;
+	width: 100%;
+}
+
+.feature-item {
+	box-sizing: border-box;
+	width: 33%;
+	background-color: #81b3d2;
+	padding-top: 48px;
+	padding-bottom: 35px;
+	padding-left: 50px;
+	padding-right: 50px;
+	text-align: center;
+	color: #ffffff;
+}
+
+.feature-item h3 {
+	margin: 0 auto 23px;
+	max-width: 180px;
+	font-size: 21px;
+}
+
+.feature-item p {
+	margin: 21px auto 0;
+	ppadding-left: 53px;
+	ppadding-right: 53px;
+	max-width: 290px;
+	lletter-spacing: 0.1px;
+}
+
+.feature-img {
+	width: 67%;
+	background-position: center;
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
+.feature-img-1 {
+	background-color: #7d6f51;
+	background-image: url("../img/feature-1.jpg");
+}
+
+.feature-img-2 {
+	background-color: #8b6351;
+	background-image: url("../img/feature-2.jpg");
+}
+/*
+.feature-img-1 img {
+	width: 100%;
+	vertical-align: middle;
+}*/
+
+.sub-feature {
+	padding-top: 56px;
+	padding-bottom: 56px;
+	background-color: #ffffff;
+	background-color: bisque;
+}
+
+.sub-feature-list {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.sub-feature-item {
+	position: relative;
+	box-sizing: border-box;
+	padding-top: 106px;
+	padding-left: 55px;
+	padding-right: 55px;
+	padding-bottom: 26px;
+	width: 33.33%;
+	text-align: center;
+	background-color: coral;
+	outline: 1px solid red;
+}
+
+.sub-feature-item::after {
+	content: "";
+	position: absolute;
+	top: 2px;
+	left: 50%;
+	width: 75px;
+	height: 75px;
+	background-color: red;
+	background-repeat: no-repeat;
+	background-position: center;
+	transform: translateX(-50%);
+}
+
+.house::after {
+	background-image: url("../img/icon-1.svg");
+}
+
+.food::after {
+	background-image: url("../img/icon-2.svg");
+}
+
+.souvenirs::after {
+	background-image: url("../img/icon-3.svg");
+}
+
+.sub-feature-item h3 {
+	margin: 0 auto;
+	margin-bottom: 23px;
+	font-size: 21px;
+	color: #000000;
+}
+
+.sub-feature-item p {
+	margin: 0;
+}
