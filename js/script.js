@@ -1,6 +1,5 @@
 /***Добавление класса к body для подсветки taba по элементам и его удаление по клику на эл-ах***/
 document.body.onkeydown = function (event) {
-	var timer;
 	if (event.keyCode === 9) { // TAB
 		document.body.classList.add('tab-user');
 
@@ -17,53 +16,50 @@ document.removeEventListener('click', function () {
 /*******Открытие и закрытие формы(модальное окно)*********/
 
 var modal_win = document.getElementById('modal');
-var modal_btn = document.getElementById('modal_close');
-var btn_write_us = document.getElementById('btn_write_us');
-var form = modal_win.getElementsByClassName("feedback-form")[0];
-var login = document.getElementById('feedback-form-fullname');
-var email = document.getElementById("feedback-form-email");
-var mess = document.getElementById("feedback-form-message");
-var storage_login = localStorage.getItem("login");
-var storage_mess = localStorage.getItem("mess");
+var btn_order = document.getElementById('btn_order');
+var form = modal_win.getElementsByClassName("order-form")[0];
+var arival_date = document.getElementById('arival-date');
+var depar_date = document.getElementById("departurer-date");
+var adults_count = document.getElementById("adults_count");
+var child_count = document.getElementById("child_count");
+var storage_arival_date = localStorage.getItem("arival_date");
+var storage_depar_date = localStorage.getItem("departurer-date");
+var storage_adults_count = localStorage.getItem("adults_count");
+var storage_child_count = localStorage.getItem("child_count");
 
-function show_modal(event) {
-	modal_win.classList.add('open');
-	event.preventDefault();
-	if (storage_login && storage_mess) {
-		login.value = storage_login;
-		mess.value = storage_mess;
-		email.focus();
-	} else if (storage_login) {
-		login.value = storage_login;
-		mess.focus();
+if (storage_arival_date && storage_depar_date) {
+		arival_date.value = storage_arival_date;
+		depar_date.value = storage_depar_date;
+		adults_count.focus();
+	} else if (storage_arival_date) {
+		arival_date.value = storage_arival_date;
+		depar_date.focus();
 	} else {
-		login.focus();
-		mess.value = storage_mess;
+		depar_date.value = storage_depar_date;
+		arival_date.focus();
 	}
 
-	document.onkeydown = function (event) {
-		if (event.keyCode === 27) { // escape
-			close_modal(modal_win);
-		}
-	};
+function close_modal(event) {
+	modal_win.classList.toggle('close');
+	
+	if (!modal_win.classList.contains('close')) {
+		document.onkeydown = function (event) {
+			if (event.keyCode === 27) { // escape
+				modal_win.classList.add('close');
+				modal_win.classList.remove("modal-error");
+			}
+		};
+	} else {
+		modal_win.classList.remove("modal-error");
+	}
+	event.preventDefault();
 }
 
-function close_modal(modal_win) {
-	modal_win.classList.remove('open');
-	modal_win.classList.remove("modal-error");
-}
-
-
-
-modal_btn.addEventListener('click', function () {
-	close_modal(modal_win);
-});
-
-btn_write_us.addEventListener('click', show_modal);
+btn_order.addEventListener('click', close_modal);
 
 form.addEventListener("submit", function (event) {
 	modal_win.classList.remove("modal-error");
-	if (login.value == '' || email.value == '' || mess.value == '') {
+	if (arival_date.value == '' || depar_date.value == '') {
 		//modal_win.offsetWidth = modal_win.offsetWidth;
 		setTimeout(function () {
 			modal_win.classList.add("modal-error");
@@ -71,50 +67,69 @@ form.addEventListener("submit", function (event) {
 		//modal_win.classList.add("modal-error");
 		event.preventDefault();
 	} else {
-		localStorage.setItem("login", login.value);
-		localStorage.setItem("mess", mess.value);
+		localStorage.setItem("arival_date", arival_date.value);
+		localStorage.setItem("departurer-date", depar_date.value);
+		localStorage.setItem("adults_count", adults_count.value);
+		localStorage.setItem("child_count", child_count.value);
 	}
 });
+
+modal_win.onclick = function(event) {
+	var targ = event.target;
+	//console.log(targ.className);
+	if (targ.classList.contains = 'counts-control') {
+		Count_people(targ);
+	}
+	else return;
+}
+
+function Count_people(targ) {
+	var inp = document.getElementById(targ.dataset.target);
+	var oper = targ.dataset.oper;
+	switch (oper) {
+			case 'minus':
+				if (inp.classList.contains("input-adults")) {
+					if (inp.value > 1) {
+						inp.value--;
+					}
+				} else if (inp.value > 0) {
+					inp.value--;
+				}
+				break;
+			case 'plus':
+				inp.value++;
+				break;
+		}
+}
 
 /*******Карта в подвале*********/
 
 ymaps.ready(init);
 var myMap,
-	myPlacemar
+	myPlacemar;
 
 function init() {
 	myMap = new ymaps.Map("YMapsID", {
-		center: [59.939107, 30.321463],
-		zoom: 17,
+		center: [34.870874, -111.762654],
+		zoom: 10,
 		controls: [] //убираем все кнопки управления
 
 	});
 	myMap.behaviors.disable('scrollZoom'); //отключение зума скролом колесика
 	//myMap.behaviors.disable('drag');
 
-	myMap.controls.add('zoomControl', {
-		float: 'none',
-		position: {
-			top: '100px',
-			right: '20px'
-		}
-	});
+	myMap.controls.add('zoomControl');
 
 	myMap.controls.add('geolocationControl'); //геолокация
 	myMap.controls.add('fullscreenControl'); //полноэкранный режим
 	myMap.controls.add('routeButtonControl', {
 		float: 'right'
 	});
+	myMap.controls.add('typeSelector'); //тип карты(спутник, карта, гибрид)
 
-	myPlacemark = new ymaps.Placemark([59.938631, 30.323055], {
-		hintContent: 'NЁRDS',
-		balloonContent: '191186, Санкт-Петербург, ул. Б. Конюшенная, д. 19/8'
-	}, {
-		iconLayout: 'default#image', //изображение без доп текста
-		iconImageHref: 'img/marker.png',
-		iconImageSize: [231, 190],
-		iconImageOffset: [-48, -190] //смещение картинки
-	});
+	myPlacemark = new ymaps.Placemark([34.870874, -111.762654], {}, {
+        preset: 'islands#redIcon'
+    });
 
 	myMap.geoObjects.add(myPlacemark);
 }

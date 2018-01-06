@@ -100,7 +100,7 @@
 				<a class="btn btn-order" id="btn_order" href="">Поиск гостиницы в Седоне</a>
 			</div>
 			
-			<div class="modal-order">
+			<div class="modal-order" id="modal">
 				<form class="order-form" action="https://echo.htmlacademy.ru" method="post">
 					<div class="order-form-group">
 						<label for="arival-date">Дата заезда:</label>
@@ -119,15 +119,15 @@
 					<div class="columns">
 						<div class="order-form-group order-form-adults">
 							<label for="adults-count">Взрослые:</label>
-							<button class="side-btn btn-minus" type="button" aria-label="уменьшить чило">–</button>
-							<input class="input-count" type="text" name="adults_count" id="adults_count" value="2">
-							<button class="side-btn btn-plus" type="button" aria-label="увеличеть чило">+</button>
+							<button class="side-btn btn-minus counts-control" type="button" data-target="adults_count" data-oper="minus" aria-label="уменьшить чило">–</button>
+							<input class="input-count input-adults" type="text" name="adults_count" id="adults_count" value="2">
+							<button class="side-btn btn-plus counts-control" type="button" data-target="adults_count" data-oper="plus" aria-label="увеличеть чило">+</button>
 						</div>
 						<div class="order-form-group order-form-child">
 							<label for="child-count">Дети:</label>
-							<button class="side-btn btn-minus" type="button" aria-label="уменьшить чило">–</button>
-							<input class="input-count" type="text" name="child_count" id="child_count" value="0">
-							<button class="side-btn btn-plus" type="button" aria-label="увеличеть чило">+</button>
+							<button class="side-btn btn-minus counts-control" type="button" data-target="child_count" data-oper="minus" aria-label="уменьшить чило">–</button>
+							<input class="input-count input-child" type="text" name="child_count" id="child_count" value="0">
+							<button class="side-btn btn-plus counts-control" type="button" data-target="child_count" data-oper="plus" aria-label="увеличеть чило">+</button>
 						</div>
 					</div>
 					<button class="btn" type="submit">Найти</button>
@@ -135,7 +135,7 @@
 			</div>
 		</section>
 		<section class="card">
-			
+			<div class="maps" id="YMapsID"></div>
 		</section>
 	</main>
 	<footer class="main-footer">
@@ -153,9 +153,7 @@
 		</div>
 		
 	</footer>
-	
-	<!--
 	<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
-	<script src="js/script.js"></script>-->
+	<script src="js/script.js"></script>
 </body>
 </html>
