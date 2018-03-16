@@ -17,7 +17,7 @@ document.removeEventListener('click', function () {
 
 var modal_win = document.getElementById('modal');
 var btn_order = document.getElementById('btn_order');
-var form = modal_win.getElementsByClassName("order-form")[0];
+var form = document.getElementsByClassName("order-form")[0];
 var arival_date = document.getElementById('arival-date');
 var depar_date = document.getElementById("departurer-date");
 var adults_count = document.getElementById("adults_count");
@@ -27,111 +27,114 @@ var storage_depar_date = localStorage.getItem("departurer-date");
 var storage_adults_count = localStorage.getItem("adults_count");
 var storage_child_count = localStorage.getItem("child_count");
 
-if (storage_arival_date && storage_depar_date) {
-		arival_date.value = storage_arival_date;
-		depar_date.value = storage_depar_date;
-		adults_count.focus();
-	} else if (storage_arival_date) {
-		arival_date.value = storage_arival_date;
-		depar_date.focus();
-	} else {
-		depar_date.value = storage_depar_date;
-		arival_date.focus();
-	}
-
-function close_modal(event) {
-	modal_win.classList.toggle('close');
-	
-	if (!modal_win.classList.contains('close')) {
-		document.onkeydown = function (event) {
-			if (event.keyCode === 27) { // escape
-				modal_win.classList.add('close');
-				modal_win.classList.remove("modal-error");
-			}
-		};
-	} else {
-		modal_win.classList.remove("modal-error");
-	}
-	event.preventDefault();
+if (form) {
+  if (storage_arival_date && storage_depar_date) {
+    arival_date.value = storage_arival_date;
+    depar_date.value = storage_depar_date;
+    adults_count.focus();
+  } else if (storage_arival_date) {
+    arival_date.value = storage_arival_date;
+    depar_date.focus();
+  } else {
+    depar_date.value = storage_depar_date;
+    arival_date.focus();
+  }
+  
+  function close_modal(event) {
+    modal_win.classList.toggle('close');
+    
+    if (!modal_win.classList.contains('close')) {
+      document.onkeydown = function (event) {
+        if (event.keyCode === 27) { // escape
+          modal_win.classList.add('close');
+          modal_win.classList.remove("modal-error");
+        }
+      };
+    } else {
+      modal_win.classList.remove("modal-error");
+    }
+    event.preventDefault();
+  }
+  
+  btn_order.addEventListener('click', close_modal);
+  
+  form.addEventListener("submit", function (event) {
+    modal_win.classList.remove("modal-error");
+    if (arival_date.value == '' || depar_date.value == '') {
+      //modal_win.offsetWidth = modal_win.offsetWidth;
+      setTimeout(function () {
+        modal_win.classList.add("modal-error");
+      }, 0);
+      //modal_win.classList.add("modal-error");
+      event.preventDefault();
+    } else {
+      localStorage.setItem("arival_date", arival_date.value);
+      localStorage.setItem("departurer-date", depar_date.value);
+      localStorage.setItem("adults_count", adults_count.value);
+      localStorage.setItem("child_count", child_count.value);
+    }
+  });
+  
+  modal_win.onclick = function(event) {
+    var targ = event.target;
+    //console.log(targ.className);
+    if (targ.classList.contains = 'counts-control') {
+      Count_people(targ);
+    }
+    else return;
+  }
+  
+  function Count_people(targ) {
+    var inp = document.getElementById(targ.dataset.target);
+    var oper = targ.dataset.oper;
+    switch (oper) {
+      case 'minus':
+        if (inp.classList.contains("input-adults")) {
+          if (inp.value > 1) {
+            inp.value--;
+          }
+        } else if (inp.value > 0) {
+          inp.value--;
+        }
+        break;
+      case 'plus':
+        inp.value++;
+        break;
+    }
+  }
 }
-
-btn_order.addEventListener('click', close_modal);
-
-form.addEventListener("submit", function (event) {
-	modal_win.classList.remove("modal-error");
-	if (arival_date.value == '' || depar_date.value == '') {
-		//modal_win.offsetWidth = modal_win.offsetWidth;
-		setTimeout(function () {
-			modal_win.classList.add("modal-error");
-		}, 0);
-		//modal_win.classList.add("modal-error");
-		event.preventDefault();
-	} else {
-		localStorage.setItem("arival_date", arival_date.value);
-		localStorage.setItem("departurer-date", depar_date.value);
-		localStorage.setItem("adults_count", adults_count.value);
-		localStorage.setItem("child_count", child_count.value);
-	}
-});
-
-modal_win.onclick = function(event) {
-	var targ = event.target;
-	//console.log(targ.className);
-	if (targ.classList.contains = 'counts-control') {
-		Count_people(targ);
-	}
-	else return;
-}
-
-function Count_people(targ) {
-	var inp = document.getElementById(targ.dataset.target);
-	var oper = targ.dataset.oper;
-	switch (oper) {
-			case 'minus':
-				if (inp.classList.contains("input-adults")) {
-					if (inp.value > 1) {
-						inp.value--;
-					}
-				} else if (inp.value > 0) {
-					inp.value--;
-				}
-				break;
-			case 'plus':
-				inp.value++;
-				break;
-		}
-}
-
 /*******Карта в подвале*********/
 
-ymaps.ready(init);
-var myMap,
-	myPlacemar;
-
-function init() {
-	myMap = new ymaps.Map("YMapsID", {
-		center: [34.870874, -111.762654],
-		zoom: 10,
-		controls: [] //убираем все кнопки управления
-
-	});
-	myMap.behaviors.disable('scrollZoom'); //отключение зума скролом колесика
-	//myMap.behaviors.disable('drag');
-
-	myMap.controls.add('zoomControl');
-
-	myMap.controls.add('geolocationControl'); //геолокация
-	myMap.controls.add('fullscreenControl'); //полноэкранный режим
-	myMap.controls.add('routeButtonControl', {
-		float: 'right'
-	});
-	myMap.controls.add('typeSelector'); //тип карты(спутник, карта, гибрид)
-
-	myPlacemark = new ymaps.Placemark([34.870874, -111.762654], {}, {
-        preset: 'islands#redIcon'
+if (document.getElementById('YMapsID')) {
+  ymaps.ready(init);
+  var myMap,
+      myPlacemar;
+  
+  function init() {
+    myMap = new ymaps.Map("YMapsID", {
+      center: [34.870874, -111.762654],
+      zoom: 10,
+      controls: [] //убираем все кнопки управления
+      
     });
-
-	myMap.geoObjects.add(myPlacemark);
+    myMap.behaviors.disable('scrollZoom'); //отключение зума скролом колесика
+    //myMap.behaviors.disable('drag');
+    
+    myMap.controls.add('zoomControl');
+    
+    myMap.controls.add('geolocationControl'); //геолокация
+    myMap.controls.add('fullscreenControl'); //полноэкранный режим
+    myMap.controls.add('routeButtonControl', {
+      float: 'right'
+    });
+    myMap.controls.add('typeSelector'); //тип карты(спутник, карта, гибрид)
+    
+    myPlacemark = new ymaps.Placemark([34.870874, -111.762654], {}, {
+      preset: 'islands#redIcon'
+    });
+    
+    myMap.geoObjects.add(myPlacemark);
+  }
 }
 
 /*******Ползунок цены*********/
@@ -140,33 +143,35 @@ var sliderElem = document.getElementById('slider');
 var minInput = document.getElementById('mincost');
 var maxInput = document.getElementById('maxcost');
 
-var slider = new Slider({
+if (sliderElem) {
+  var slider = new Slider({
 	elem: sliderElem,
-	max: 20000
-});
+	max: 3000
+  });
 
-sliderElem.addEventListener('slide_min', function (event) {
-	minInput.value = event.detail;
-});
-
-sliderElem.addEventListener('slide_max', function (event) {
-	maxInput.value = event.detail;
-});
-
-minInput.onkeypress = maxInput.onkeypress = function (event) {
-	var chr = getChar(event);
-
-	if (event.ctrlKey || event.altKey || event.metaKey || chr == null) return; // специальная клавиша
-	if (chr < '0' || chr > '9') return false;
+  sliderElem.addEventListener('slide_min', function (event) {
+    minInput.value = event.detail;
+  });
+  
+  sliderElem.addEventListener('slide_max', function (event) {
+    maxInput.value = event.detail;
+  });
+  
+  minInput.onkeypress = maxInput.onkeypress = function (event) {
+    var chr = getChar(event);
+    
+    if (event.ctrlKey || event.altKey || event.metaKey || chr == null) return; // специальная клавиша
+    if (chr < '0' || chr > '9') return false;
+  }
+  
+  minInput.oninput = function () {
+    slider.setMinValue(this.value);
+  };
+  
+  maxInput.oninput = function () {
+    slider.setMaxValue(this.value);
+  };
 }
-
-minInput.oninput = function () {
-	slider.setMinValue(this.value);
-};
-
-maxInput.oninput = function () {
-	slider.setMaxValue(this.value);
-};
 
 
 function Slider(options) {
@@ -258,9 +263,12 @@ function Slider(options) {
 			newLeft = rightEdge;
 		}
 
-		MinElem.style.left = newLeft + 'px';
-		scaleActive.style.left = newLeft + MinElem.offsetWidth / 2 + 'px';
-
+		//MinElem.style.left = newLeft + 'px';
+        MinElem.style.left = (newLeft / elem.offsetWidth) * 100 + '%';  //версия в процентах
+      
+		//scaleActive.style.left = newLeft + MinElem.offsetWidth / 2 + 'px';
+        scaleActive.style.left = ((newLeft + MinElem.offsetWidth / 2) / elem.offsetWidth) * 100 + '%';  //версия в процентах
+      
 		//console.log(positionToValue(newLeft));
 		setEvent('slide_min', newLeft);
 	}
@@ -280,8 +288,12 @@ function Slider(options) {
 			newLeft = rightEdge;
 		}
 
-		MaxElem.style.left = newLeft + 'px';
-		scaleActive.style.right = elem.offsetWidth - (newLeft + MaxElem.offsetWidth / 2) + 'px';
+		//MaxElem.style.left = newLeft + 'px';
+        MaxElem.style.left = (newLeft / elem.offsetWidth) * 100 + '%';  //версия в процентах
+      
+		//scaleActive.style.right = elem.offsetWidth - (newLeft + MaxElem.offsetWidth / 2) + 'px';
+        scaleActive.style.right = ((elem.offsetWidth - (newLeft + MaxElem.offsetWidth / 2)) / elem.offsetWidth) * 100 + '%';  //версия в процентах
+        
 
 		//console.log(positionToValue(newLeft));
 		setEvent('slide_max', newLeft);
@@ -316,8 +328,11 @@ function Slider(options) {
 			pos = invalidPos;
 		}
 
-		MinElem.style.left = pos + 'px';
-		scaleActive.style.left = pos + MinElem.offsetWidth / 2 + 'px';
+		//MinElem.style.left = pos + 'px';
+        MinElem.style.left = (pos / elem.offsetWidth) * 100 + '%';  //версия в процентах
+        
+		//scaleActive.style.left = pos + MinElem.offsetWidth / 2 + 'px';
+        scaleActive.style.left = ((pos + MinElem.offsetWidth / 2) / elem.offsetWidth) * 100 + '%';  //версия в процентах
 		setEvent('slide_min', pos);
 	}
 
@@ -335,7 +350,10 @@ function Slider(options) {
 		}
 
 		MaxElem.style.left = pos + 'px';
-		scaleActive.style.right = elem.offsetWidth - (pos + MaxElem.offsetWidth / 2) + 'px';
+        MaxElem.style.left = (pos / elem.offsetWidth) * 100 + '%';  //версия в процентах
+		
+        //scaleActive.style.right = elem.offsetWidth - (pos + MaxElem.offsetWidth / 2) + 'px';
+        scaleActive.style.right = ((elem.offsetWidth - (pos + MaxElem.offsetWidth / 2)) / elem.offsetWidth) * 100 + '%';  //версия в процентах
 		setEvent('slide_max', pos);
 	}
 

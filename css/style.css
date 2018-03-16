@@ -44,7 +44,7 @@ img {
 	color: #000000;
 	background-color: #ffffff;
 	
-	background-color: lightyellow;
+	/*background-color: lightyellow;*/
 }
 
 .header-logo {
@@ -74,18 +74,18 @@ img {
 	padding-top: 15px;
 	padding-bottom: 15px;
 	margin-right: 2.8%;
-	outline: 1px solid red;
+	/*outline: 1px solid red;*/
 }
 
 .site-nav li:nth-child(2n) {
 	margin-right: auto;
-	outline: 1px solid red;
+	/*outline: 1px solid red;*/
 }
 
 .site-nav li:nth-child(3n),
 .site-nav li:nth-child(4n) {
 	text-align: right;
-	outline: 1px solid green;
+	/*outline: 1px solid green;*/
 	margin-right: 0;
 }
 
@@ -136,7 +136,7 @@ img {
 	padding-bottom: 50px;
 	text-align: center;
 	background-color: #ffffff;
-	background-color: aquamarine;
+	/*background-color: aquamarine;*/
 }
 
 .welcome-slogan h2 {
@@ -218,7 +218,7 @@ img {
 	padding-top: 56px;
 	padding-bottom: 56px;
 	background-color: #ffffff;
-	background-color: bisque;
+	/*background-color: bisque;*/
 }
 
 .sub-feature-list {
@@ -238,8 +238,11 @@ img {
 	padding-bottom: 26px;
 	width: 33.33%;
 	text-align: center;
+    
+    /*
 	background-color: coral;
 	outline: 1px solid red;
+    */
 }
 
 .sub-feature-item::after {
@@ -249,7 +252,7 @@ img {
 	left: 50%;
 	width: 75px;
 	height: 75px;
-	background-color: red;
+	/*background-color: red;*/
 	background-repeat: no-repeat;
 	background-position: center;
 	transform: translateX(-50%);
@@ -297,7 +300,7 @@ img {
 	padding-right: 47px;
 	width: 33.33%;
 	text-align: center;
-	outline: 1px solid red;
+	/*outline: 1px solid red;*/
 }
 
 .feature-3-item h3 {
@@ -412,7 +415,8 @@ img {
 	padding-bottom: 55px;
 	margin-left: -284px;
 	color: #000000;
-	background-color: azure;
+    background-color: #ffffff;
+	/*background-color: azure;*/
 	box-shadow: 0 7px 15px rgba(0, 1, 1, 0.15);
 	z-index: 2000;
 	transition: transform 0.1s ease-in;
@@ -608,8 +612,9 @@ img {
 	padding-top: 36px;
 	padding-bottom: 36px;
 	min-height: 120px;
-	background-color: azure;
-	opacity: 0.9px;
+    background-color: rgba(256, 256, 256, 0.9);
+	/*background-color: azure;*/
+	/*opacity: 0.9px;*/
 }
 
 .inner-page .main-footer {
@@ -620,8 +625,8 @@ img {
 .footer-item {
 	width: 33.33%;
 	text-align: center;
-	background-color: antiquewhite;
-	outline: 1px solid red;
+	/*background-color: antiquewhite;
+	outline: 1px solid red;*/
 }
 
 .hashtag {
@@ -743,7 +748,7 @@ img {
 	margin-right: 4.1%;
 	padding: 0;
 	width: 20%;
-	outline: 1px solid red;
+	/*outline: 1px solid red;*/
 }
 
 .filter-form fieldset:last-of-type {
@@ -865,7 +870,7 @@ img {
 	width: 50%;
 	padding-left: 15%;
 	text-align: center;
-	outline: 1px solid red;
+	/*outline: 1px solid red;*/
 }
 
 .output-cost label:nth-child(2) {
@@ -880,7 +885,8 @@ img {
 	mmargin-left: 8px;
 	font: inherit;
 	color: #ffffff;
-	background-color: coral;
+    background-color: transparent;
+	/*background-color: coral;*/
 	border: none;
 }
 
@@ -987,7 +993,7 @@ img {
 	padding-right: 6%;
 	color: #000000;
 	
-	background-color: bisque;
+	/*background-color: bisque;*/
 }
 
 .catalog-sort__count {
@@ -1147,7 +1153,7 @@ a.sort-type-active {
 
 .hotel-column {
 	margin-right: 7px;
-	outline: 1px solid red;
+	/*outline: 1px solid red;*/
 }
 
 .hotel-column:last-child {
